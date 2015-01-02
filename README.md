@@ -1,4 +1,4 @@
-robot
-=====
+Seymour
+=======
 
-code for raspberry pi robot
+Code for raspberry pi robot

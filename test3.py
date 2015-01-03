@@ -47,12 +47,25 @@ def cleanup():
 
 init ()
 
-t1=threading.Thread(target=left, args = (0.5, True))
+t1=threading.Thread(target=left, args = (0.9, True))
+t2=threading.Thread(target=right, args = (0.9, True))
+
 t1.start()
-time.sleep(0.1)
-t2=threading.Thread(target=right, args = (0.3, True))
 t2.start()
-time.sleep(0.1)
+
+t1.join()
+t2.join()
+
+t1=threading.Thread(target=left, args = (0.1, True))
+t1.start()
+t1.join()
+
+t1=threading.Thread(target=left, args = (0.9, True))
+t2=threading.Thread(target=right, args = (0.9, True))
+
+t1.start()
+t2.start()
+
 t1.join()
 t2.join()
 

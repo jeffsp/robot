@@ -56,6 +56,25 @@ def cleanup ():
 
 	GPIO.cleanup()
 
+def get_left (key):
+	t=None
+	if key == 'u':
+		t=threading.Thread(target=left, args = (0.2, True))
+		t.start()
+	elif key == 'j':
+		t=threading.Thread(target=left, args = (0.2, False))
+		t.start()
+
+def get_right (key):
+	t=None
+	if key == 'i':
+		t=threading.Thread(target=right, args = (0.2, True))
+		t.start()
+	elif key == 'k':
+		t=threading.Thread(target=right, args = (0.2, False))
+		t.start()
+	return t
+
 init ()
 
 key=0
@@ -66,23 +85,17 @@ print 'Press "i,k" for right'
 
 while key != 'q':
 	key = _getch()
+
+	t1=get_left(key)
+	time.sleep(0.05)
+	t2=get_right(key)
+	time.sleep(0.05)
+
 	print key
 
-	if key == 'u':
-		t1=threading.Thread(target=left, args = (0.1, True))
-		t1.start()
-		t1.join()
-	elif key == 'j':
-		t1=threading.Thread(target=left, args = (0.1, False))
-		t1.start()
-		t1.join()
-	elif key == 'i':
-		t1=threading.Thread(target=right, args = (0.1, True))
-		t1.start()
-		t1.join()
-	elif key == 'k':
-		t1=threading.Thread(target=right, args = (0.1, False))
-		t1.start()
-		t1.join()
+	if t1 != None:
+		t1.join ()
+	if t2 != None:
+		t2.join ()
 
 cleanup ()
